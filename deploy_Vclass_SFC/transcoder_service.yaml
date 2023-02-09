@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transcoder-deployment
+spec:
+  selector:
+    matchLabels:
+      app: transcoder-deployment
+  template:
+    metadata:
+      labels:
+        app: transcoder-deployment
+    spec:
+      containers:
+      - name: transcoder
+        image: hctung57/transcoder:1.0.7
+        env:
+          - name: SOURCE_STREAM_SERVICE
+            value: "source-streaming-service"
+          - name: SOURCE_RTMP_PORT
+            value: "1936"
+          - name: RESOLUTION
+            value: "480"
+        ports:
+        - containerPort: 1935
+          name: container-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transcoder-service
+spec:
+  selector:
+    app: transcoder-deployment
+  ports:
+  - name: output-streaming-port
+    port: 7000
+    targetPort: container-port

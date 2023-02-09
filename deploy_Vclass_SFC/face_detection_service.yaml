@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-detection-deployment
+spec:
+  selector:
+    matchLabels:
+      app: face-detection-deployment
+  template:
+    metadata:
+      labels:
+        app: face-detection-deployment
+    spec:
+      containers:
+      - name: face-detection
+        image: hctung57/face-detection:1.0.2
+        env:
+          - name: SOURCE_STREAM_SERVICE
+            value: "source-streaming-service"
+          - name: SOURCE_RTMP_PORT
+            value: "1936"
+        ports:
+        - containerPort: 1935
+          name: container-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: face-detection-service
+spec:
+  selector:
+    app: face-detection-deployment
+  ports:
+  - name: output-streaming-port
+    port: 6000
+    targetPort: container-port

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: match-av-deployment
+spec:
+  selector:
+    matchLabels:
+      app: match-av-deployment
+  template:
+    metadata:
+      labels:
+        app: match-av-deployment
+    spec:
+      containers:
+      - name: match-av
+        image: hctung57/match-av:1.0.0
+        env:
+          - name: SOURCE_STREAM_SERVICE
+            value: "face-detection-service"
+          - name: SOURCE_RTMP_PORT
+            value: "6000"
+          - name: SOURCE_AUDIO_SERVICE
+            value: "source-streaming-service"
+          - name: SOURCE_AUDIO_PORT
+            value: "1936"
+          - name: DELAY_AUDIO_VIDEO_TIME
+            value: "5"
+        ports:
+        - containerPort: 1935
+          name: container-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: match-av-service
+spec:
+  selector:
+    app: match-av-deployment
+  ports:
+  - name: output-streaming-port
+    port: 8000
+    targetPort: container-port
