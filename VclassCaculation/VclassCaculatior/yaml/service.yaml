@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: source-streaming-service
+spec:
+  selector:
+    app: source-streaming-deployment
+  ports:
+  - name: output-streaming-port
+    port: 1936
+    targetPort: container-port

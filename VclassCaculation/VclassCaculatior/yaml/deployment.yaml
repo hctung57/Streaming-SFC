@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: source-streaming-deployment
+spec:
+  selector:
+    matchLabels:
+      app: source-streaming-deployment
+  template:
+    metadata:
+      labels:
+        app: source-streaming-deployment
+    spec:
+      containers:
+      - name: source-streaming
+        image: hctung57/source-streaming-ffmpeg:1.0
+        ports:
+        - containerPort: 1935
+          name: container-port
+
+
+
+
