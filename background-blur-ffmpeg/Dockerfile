@@ -42,6 +42,7 @@ COPY foreground.jpg \
 COPY nginx.sh /src
 RUN chmod +x nginx.sh
 
+
 EXPOSE 1935
 CMD ["sh","./nginx.sh"]
 
