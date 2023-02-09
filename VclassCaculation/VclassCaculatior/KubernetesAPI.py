@@ -101,8 +101,8 @@ def create_namespaced_service(target_service: str, target_ID: str,
     return ("Deploy {} succesfully.".format(service_name))
 
 
-def create_namespaced_deployment(target_deployment: str, target_ID: str, target_image: str,
-                                 target_container_port: int, target_env, target_namespace: str = "default"):
+def create_namespaced_deployment(target_deployment: str, target_ID: str, target_image: str, target_container_port: int,
+                                 target_env, target_node, target_namespace: str = "default"):
     deployment_name = target_deployment + "-" + target_ID + "-deployment"
     body = (
         client.V1Deployment(
@@ -127,8 +127,9 @@ def create_namespaced_deployment(target_deployment: str, target_ID: str, target_
                                 container_port=target_container_port,
                                 name="container-port"
                             )],
-                            env=target_env
-                        )]
+                            env=target_env,
+                        )],
+                        node_name=target_node
                     )
                 )
             )
@@ -166,8 +167,3 @@ def connect_get_namespaced_pod_exec(target_command: str, target_name: str):
         target_name, target_command)
     output = subprocess.check_output(['/bin/bash', '-c', command])
     print(output)
-
-
-a = list_namespaced_endpoints()
-print(a)
-

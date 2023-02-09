@@ -11,6 +11,7 @@ class service_info:
         self.container_port = container_port
         self.service_port = service_port
         self.environment_variable = None
+        self.node_name = None
 
 
 SOURCE_STREAMING_VNF = service_info(NFV_SOURCE_STREAMING_SERVICE_NAME,
@@ -23,3 +24,5 @@ BACKGROUND_BLUR_VNF = service_info(NFV_BACKGROUND_BLUR_SERVICE_NAME,
                                    "hctung57/background-blur:1.0.2", 1935, 1936)
 MATCH_AUDIO_VIDEO_VNF = service_info(NFV_MATCH_AUDIO_VIDEO_SERVICE_NAME,
                                      "hctung57/match-av:1.0.0", 1935, 1936)
+NOISE_SUPRESS_VNF = service_info(
+    NFV_NOISE_SUPPRESS_NAME, "hctung57/noisesuppress:1.0.2", 1935, 1936)

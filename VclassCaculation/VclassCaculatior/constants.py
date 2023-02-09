@@ -6,6 +6,7 @@ NFV_BACKGROUND_BLUR_SERVICE_NAME = "background-blur"
 NFV_SOURCE_STREAMING_SERVICE_NAME = "source-streaming"
 NFV_MATCH_AUDIO_VIDEO_SERVICE_NAME = "match-av"
 NFV_TRANSCODER_SERVICE_NAME = "transcoder"
+NFV_NOISE_SUPPRESS_NAME = "noise-suppress"
 
 #Transcoder resolution
 R_1080P = 1080
@@ -13,6 +14,10 @@ R_720P = 720
 R_480P = 480
 R_360P = 360
 R_144P = 144
+
+#Node name
+CLOUD = "node2"
+EDGE = "node1"
 
 # HOST IP
 MASTER_HOST = "localhost"

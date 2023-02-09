@@ -1,5 +1,6 @@
 from kubernetes import client, config
-import subprocess
+from VNFInfomation import *
+from constants import *
 config.load_kube_config()
 ApiV1 = client.CoreV1Api()
 AppV1 = client.AppsV1Api()
@@ -46,3 +47,7 @@ def create_namespaced_deployment(target_deployment: str, target_ID: str, target_
     except:
         return ("There is unknown error when deploy {}.".format(deployment_name))
     return ("Deploy {} succesfully.".format(deployment_name))
+
+SOURCE_STREAMING_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
+                                             client.V1EnvVar(name='SOURCE_RTMP_PORT', value='')]
+SOURCE_STREAMING_VNF.node_name = CLOUD
