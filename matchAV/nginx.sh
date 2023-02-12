@@ -20,9 +20,5 @@ then
 fi
 sleep 1
 done
-# 1920x1080p(FHD) = 2200kb
-# 1280x720p(HD) = 1100kb
-# 854x480p(SD)= 700kb 
-# 640x360p=500kb 
 # Just a loop to keep the container running
 while true; do :; done
