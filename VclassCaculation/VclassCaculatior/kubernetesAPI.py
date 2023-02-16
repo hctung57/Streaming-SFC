@@ -26,9 +26,12 @@ def list_namespaced_pod_status(target_namespace: str = "default"):
         if pod.metadata.deletion_timestamp != None and (pod.status.phase == 'Running' or pod.status.phase == 'Pending'):
             current_pod_state = 'Terminating'
         elif pod.status.phase == 'Pending':
-            for container in pod.status.container_statuses:
-                if container.state.waiting != None:
-                    current_pod_state = container.state.waiting.reason
+            try:
+                for container in pod.status.container_statuses:
+                    if container.state.waiting != None:
+                        current_pod_state = container.state.waiting.reason
+            except:
+                return list_pod_status
         else:
             current_pod_state = str(pod.status.phase)
         sum_pod_container = len(pod.status.container_statuses)

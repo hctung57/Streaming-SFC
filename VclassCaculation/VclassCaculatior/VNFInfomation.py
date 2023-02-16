@@ -19,7 +19,7 @@ SOURCE_STREAMING_VNF = service_info(
     NFV_SOURCE_STREAMING_SERVICE_NAME, "hctung57/source-streaming-ffmpeg:1.0.1", 1935, 1936)
 SOURCE_STREAMING_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
                                              client.V1EnvVar(name='SOURCE_RTMP_PORT', value='')]
-SOURCE_STREAMING_VNF.node_name = CLOUD
+SOURCE_STREAMING_VNF.node_name = EDGE
 
 # transcoder init
 TRANSCODER_VNF = service_info(
@@ -56,7 +56,7 @@ MATCH_AUDIO_VIDEO_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREA
                                               client.V1EnvVar(
                                                   name='SOURCE_AUDIO_PORT', value=''),
                                               client.V1EnvVar(name='DELAY_AUDIO_VIDEO_TIME', value='0')]
-MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
+MATCH_AUDIO_VIDEO_VNF.node_name = EDGE
 
 # noisesuppress init
 NOISE_SUPRESS_VNF = service_info(

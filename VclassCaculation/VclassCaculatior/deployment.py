@@ -12,7 +12,7 @@ from constants import *
 SFC = []
 
 SFC1 = [[SOURCE_STREAMING_VNF],
-        [TRANSCODER_VNF, BACKGROUND_BLUR_VNF, MATCH_AUDIO_VIDEO_VNF],
+        [TRANSCODER_VNF, MATCH_AUDIO_VIDEO_VNF],
         [NOISE_SUPRESS_VNF]]
 SFC2 = [[SOURCE_STREAMING_VNF],
         [MATCH_AUDIO_VIDEO_VNF],
@@ -116,8 +116,12 @@ def delete_sfc(sfc, sfc_id: str):
                 vnf.service_name, sfc_id)
             print(message)
     return
-
-
-create_sfc(SFC3, "1")
-time.sleep(300)
-delete_sfc(SFC3, "1")
+# i = 1
+# for sfc in SFC:
+#     create_sfc(sfc, str(i))
+#     i += 1
+# # time.sleep(300)
+# i = 1
+# for sfc in SFC:
+#     delete_sfc(sfc, str(i))
+#     i += 1

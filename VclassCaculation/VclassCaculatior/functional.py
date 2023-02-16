@@ -9,14 +9,7 @@ def generate_file_time():
     return generate_file_time
 
 
-def write_to_csv(data, file_name, fieldnames):
-    with open(file_name, 'w', newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-        writer.writeheader()
-        for row in data:
-            writer.writerow(row)
-a = generate_file_time()
-print(a)
-DATA_PROMETHEUS_FILE_DIRECTORY.format(a,a,"1","1")
-print(DATA_PROMETHEUS_FILE_DIRECTORY)
+def write_to_csv(data, file_name):
+    with open(file_name, 'a', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(data)
