@@ -12,16 +12,17 @@ from constants import *
 SFC = []
 
 SFC1 = [[SOURCE_STREAMING_VNF],
-        [TRANSCODER_VNF, MATCH_AUDIO_VIDEO_VNF],
+        [TRANSCODER_VNF, BACKGROUND_BLUR_VNF, MATCH_AUDIO_VIDEO_VNF],
         [NOISE_SUPRESS_VNF]]
 SFC2 = [[SOURCE_STREAMING_VNF],
         [MATCH_AUDIO_VIDEO_VNF],
         [NOISE_SUPRESS_VNF]]
+SFC3 = [[SOURCE_STREAMING_VNF]]
 SFC.append(SFC1)
 SFC.append(SFC2)
+
+
 # NOTE: generate a k8s service name using service and id
-
-
 def generate_service_name(service_name: str, service_id: str):
     return service_name + "-" + service_id + "-service"
 
@@ -116,12 +117,7 @@ def delete_sfc(sfc, sfc_id: str):
             print(message)
     return
 
-i = 1
-for sfc in SFC:
-    create_sfc(sfc,str(i))
-    i = i + 1
 
-i = 1
-for sfc in SFC:
-    delete_sfc(sfc,str(i))
-    i = i + 1
+create_sfc(SFC3, "1")
+time.sleep(300)
+delete_sfc(SFC3, "1")

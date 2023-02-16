@@ -29,7 +29,7 @@ TRANSCODER_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVI
                                            name='SOURCE_RTMP_PORT', value=''),
                                        client.V1EnvVar(name='RESOLUTION', value='')]
 NFV_TRANSCODER_RESOUTION = R_480P
-TRANSCODER_VNF.node_name = EDGE
+TRANSCODER_VNF.node_name = CLOUD
 
 # face detection init
 FACE_DETECTION_VNF = service_info(
@@ -56,7 +56,7 @@ MATCH_AUDIO_VIDEO_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREA
                                               client.V1EnvVar(
                                                   name='SOURCE_AUDIO_PORT', value=''),
                                               client.V1EnvVar(name='DELAY_AUDIO_VIDEO_TIME', value='0')]
-MATCH_AUDIO_VIDEO_VNF.node_name = EDGE
+MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
 
 # noisesuppress init
 NOISE_SUPRESS_VNF = service_info(

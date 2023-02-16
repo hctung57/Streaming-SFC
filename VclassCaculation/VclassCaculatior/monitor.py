@@ -1,13 +1,6 @@
-from kubernetes import client, config
-import prometheus_api_client, time, datetime, csv
-from kubernetes.client.rest import ApiException
+import prometheus_api_client
+import csv
 from datetime import datetime
-
-config.load_kube_config("/home/duc/.kube/config")
-
-
-
-        
 
 def Monitoring_Node(node_name):
     para = f"job = '{node_name}'"
@@ -85,19 +78,12 @@ def write_cvs_pods(pod_name):
 try:
     prom = prometheus_api_client.PrometheusConnect()
     print("Connected to Prometheus Server !!!")
-    
-    k8s_api_obj = client.CoreV1Api()
-    api_response = k8s_api_obj.list_namespaced_pod(namespace='default')
-    
-    
-        
 
-    CPU_Usage_value, Memory_Usage_value, Bandwidth_value, time_node = Monitoring_Node('node_worker_1')
-    write_cvs_node('node_worker_1')
-    for i in api_response.items:
-        pod_name = i.metadata.name
-        CPU_Pod_value, Memory_Pod_value, Bandwidth_Pod_value, time_pods = Monitoring_Pod(pod_name)
-        write_cvs_pods(pod_name)
+    # CPU_Usage_value, Memory_Usage_value, Bandwidth_value, time_node = Monitoring_Node('node_worker_1')
+    # write_cvs_node('node_worker_1')
+    CPU_Pod_value, Memory_Pod_value, Bandwidth_Pod_value, time_pods = Monitoring_Pod("source-streaming-1-deployment-66565c4dd7-77ngr")
+    write_cvs_pods("source-streaming-1-deployment-66565c4dd7-77ngr")
+    
 
 
 except Exception as i:
