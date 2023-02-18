@@ -20,4 +20,5 @@ CLOUD = "node2"
 EDGE = "node1"
 
 DATA_PROMETHEUS_FILE_DIRECTORY = "/home/server1/virtualclassroom-SFC/VclassCaculation/VclassCaculatior/results/{}/data_prom_sfc_{}_{}_repeat_time_{}.csv"
+DATA_PROMETHEUS_FILE_NODE_DIRECTORY = "/home/server1/virtualclassroom-SFC/VclassCaculation/VclassCaculatior/results/{}/data_prom_nodes_{}_repeat_time_{}.csv"
 DATA_PROMETHEUS_FOLDER_DIRECTORY = "/home/server1/virtualclassroom-SFC/VclassCaculation/VclassCaculatior/results/{}"

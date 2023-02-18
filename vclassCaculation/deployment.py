@@ -121,7 +121,7 @@ def delete_sfc(sfc, sfc_id: str):
 #     create_sfc(sfc, str(i))
 #     i += 1
 # # time.sleep(300)
-# i = 1
+# i = 1   
 # for sfc in SFC:
 #     delete_sfc(sfc, str(i))
 #     i += 1
