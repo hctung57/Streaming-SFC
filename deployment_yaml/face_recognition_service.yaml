@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: face-recognition-deployment
+spec:
+  selector:
+    matchLabels:
+      app: face-recognition-deployment
+  template:
+    metadata:
+      labels:
+        app: face-recognition-deployment
+    spec:
+      containers:
+      - name: face-recognition
+        image: hctung57/face-recognition-ffmpeg:test
+        env:
+          - name: SOURCE_STREAM_SERVICE
+            value: "source-streaming-service"
+          - name: SOURCE_RTMP_PORT
+            value: "1936"
+          - name: IMAGE_URL
+            value: "https://lh6.googleusercontent.com/X-GkxplHlP8_XvSxtWIIhwEHVuq_OTYNp7omk029HbpTKyQMSPUbgCdGgixr_AnfY_E=w2400"
+        ports:
+        - containerPort: 1935
+          name: container-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: face-recognition-service
+spec:
+  selector:
+    app: face-recognition-deployment
+  ports:
+  - name: output-streaming-port
+    port: 6000
+    targetPort: container-port

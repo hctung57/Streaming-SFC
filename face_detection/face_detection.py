@@ -2,10 +2,12 @@ import cv2
 import mediapipe as mp
 import configargparse
 import time
+import logging
 import subprocess
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
-
+logging.basicConfig(filename='app.log', filemode='a', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - NUM: %(num_face)s - FPS: %(fps)s')
 #parser func
 def parser_args():
     parser = configargparse.ArgParser(description="Face Detection NFV FIL HUST",
@@ -50,12 +52,14 @@ command = ['ffmpeg', '-re',
 p = subprocess.Popen(command, stdin=subprocess.PIPE, stderr=True)
 
 #global variable
+current_fps = 0
 sum_frame = 1
 sum_face_true = 0
 print_fps_period = 1
 frame_count = 1
 t0 = time.monotonic()
 print_fps = 0
+current_fps = 0
 clear = mp_drawing.DrawingSpec(color=(255,0,0), thickness= 0, circle_radius = 0)
 with mp_face_detection.FaceDetection(
     model_selection=1, min_detection_confidence=0.4) as face_detection:
@@ -80,8 +84,8 @@ with mp_face_detection.FaceDetection(
         mp_drawing.draw_detection(image, detection, clear )
       num_face = len(results.detections)
     #print number of face in frame
-    cv2.putText(image,"Face:"+str(num_face),(25,25), font, 1.0, (255,0,0), 1)
-    cv2.putText(image,"FPS:{:6.2f}".format(print_fps),(25,50), font, 1.0, (255,0,0), 1)
+    # cv2.putText(image,"Face:"+str(num_face),(25,25), font, 1.0, (255,0,0), 1)
+    # cv2.putText(image,"FPS:{:6.2f}".format(print_fps),(25,50), font, 1.0, (255,0,0), 1)
     #fps calculate
     sum_frame += 1
     frame_count += 1
@@ -92,6 +96,7 @@ with mp_face_detection.FaceDetection(
         print("FPS: {:6.2f}".format(current_fps), end="\r")
         frame_count = 0
         t0 = time.monotonic()
+    logging.info('', extra={'num': num_face, 'fps': f'{current_fps:.2f}'})
     # write to pipe
     p.stdin.write(image.tobytes())
     if cv2.waitKey(5) & 0xFF == 27:

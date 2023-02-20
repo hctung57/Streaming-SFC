@@ -56,7 +56,7 @@ MATCH_AUDIO_VIDEO_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREA
                                               client.V1EnvVar(
                                                   name='SOURCE_AUDIO_PORT', value=''),
                                               client.V1EnvVar(name='DELAY_AUDIO_VIDEO_TIME', value='0')]
-MATCH_AUDIO_VIDEO_VNF.node_name = EDGE
+MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
 
 # noisesuppress init
 NOISE_SUPRESS_VNF = service_info(
@@ -64,3 +64,11 @@ NOISE_SUPRESS_VNF = service_info(
 NOISE_SUPRESS_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_AUDIO_SERVICE', value=''),
                                           client.V1EnvVar(name='SOURCE_AUDIO_PORT', value='')]
 NOISE_SUPRESS_VNF.node_name = CLOUD
+
+# face recognition init
+FACE_RECOGNITION_VNF = service_info(
+    NFV_FACE_RECOGNITION_NAME, "hctung57/face-recognition-ffmpeg:test", 1935, 1936)
+FACE_RECOGNITION_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_AUDIO_SERVICE', value=''),
+                                          client.V1EnvVar(name='SOURCE_AUDIO_PORT', value=''),
+                                          client.V1EnvVar(name='IMAGE_URL', value='')]
+FACE_RECOGNITION_VNF.node_name = CLOUD
