@@ -26,6 +26,7 @@ def deploy_sfc_and_get_prometheus_pod_value(target_sfc, target_sfc_id: str, file
                     data = [time_prom, cpu, memory, bandwidth_transmit, bandwidth_receive, pod.pod_name]
                     functional.write_to_csv(data, file_name)
                 except:
+                    # print("Error when call monitoring!")
                     continue
                 # # caculate value here
         time.sleep(0.5)
@@ -68,7 +69,7 @@ def main():
             th.start()
             sfc_id += 1
 
-        # calculate nodes
+        # calculate nodes (1 tab)
         file_name_nodes = DATA_PROMETHEUS_FILE_NODE_DIRECTORY.format(
             generate_file_time, generate_file_time, repetition)
         th = threading.Thread(target=get_prometheus_node_value(

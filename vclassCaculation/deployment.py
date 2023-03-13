@@ -14,8 +14,14 @@ SFC = []
 SFC1 = [[SOURCE_STREAMING_VNF],
         [MATCH_AUDIO_VIDEO_VNF],
         [NOISE_SUPRESS_VNF]]
-SFC.append(SFC1)
-# SFC.append(SFC2)
+
+SFC2 = [[SOURCE_STREAMING_VNF],
+        [BACKGROUND_BLUR_VNF]]
+
+SFC3 = [[SOURCE_STREAMING_VNF],
+        [FACE_DETECTION_VNF]]
+
+SFC.append(SFC2)
 
 
 # NOTE: generate a k8s service name using service and id
@@ -117,10 +123,10 @@ def delete_sfc(sfc, sfc_id: str):
 # for sfc in SFC:
 #     delete_sfc(sfc, str(i))
 #     i += 1
-i = 1
-for sfc in SFC:
-    create_sfc(sfc, str(i))
-    i += 1
+# i = 1
+# for sfc in SFC:
+#     create_sfc(sfc, str(i))
+#     i += 1
 # time.sleep(30000)
 # i = 1   
 # for sfc in SFC:

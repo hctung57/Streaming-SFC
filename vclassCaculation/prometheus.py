@@ -39,22 +39,37 @@ def monitoring_pod(pod_name):
         CPU_usage_pods = CPU_pods[0].get('value')
         time = CPU_usage_pods[0]
         CPU_pod_value = CPU_usage_pods[1]
-
+    except:
+        # print("Error when query CPU!")
+        return
+    
+    try:
         memory_pods = prom.custom_query(
             query=MEMORY_POD_QUERY.format(pod_name))
         memory_usage_pod = memory_pods[0].get('value')
         memory_pod_value = memory_usage_pod[1]
-        
+    except:
+        # print("Error when query memory!")
+        return
+    
+    try:
         bandwidth_receive_pod = prom.custom_query(
             query=BANDWIDTH_RECEIVE_POD_QUERY.format(pod_name))
         bandwidth_receive_pod_value = bandwidth_receive_pod[0].get('value')[1]
-        
+    except:
+        # print("Error when query bandwidth reveive!")
+        return
+    
+    try:
+                
         bandwidth_transmit_pod = prom.custom_query(
             query=BANDWIDTH_TRANSMIT_POD_QUERY.format(pod_name))
         bandwidth_transmit_pod_value = bandwidth_transmit_pod[0].get('value')[
             1]
     except:
+        # print("Error when query bandwidth transmit!")
         return
+    
     return CPU_pod_value, memory_pod_value, bandwidth_receive_pod_value, bandwidth_transmit_pod_value, time
 
 # NOTE: Check output of streaming over last nfv
