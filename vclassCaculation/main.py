@@ -21,9 +21,12 @@ def deploy_sfc_and_get_prometheus_pod_value(target_sfc, target_sfc_id: str, file
         list_pod_namespaced = kubernetesAPI.list_namespaced_pod_status()
         for pod in list_pod_namespaced:
             if key in pod.pod_name and pod.pod_status == "Running":
-                data = [time.monotonic(), pod.pod_name]
-                functional.write_to_csv(data, file_name)
-
+                try:
+                    cpu, memory, bandwidth_transmit, bandwidth_receive, time_prom = prometheus.monitoring_pod(pod.pod_name)
+                    data = [time_prom, cpu, memory, bandwidth_transmit, bandwidth_receive, pod.pod_name]
+                    functional.write_to_csv(data, file_name)
+                except:
+                    continue
                 # # caculate value here
         time.sleep(0.5)
     return
@@ -47,8 +50,8 @@ def get_prometheus_node_value(target_list_node: str, file_name: str, time_to_cal
 
 def main():
     # edit number_of_repetitions here
-    number_of_repetitions = 2
-    time_to_caculate = 60  # sec
+    number_of_repetitions = 10
+    time_to_caculate = 300  # sec
     print("[START CALCULATING WITH", number_of_repetitions,
           " REPETITION AND", time_to_caculate, "SECOND]")
     generate_file_time = functional.generate_file_time()

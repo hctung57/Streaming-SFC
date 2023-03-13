@@ -23,41 +23,39 @@ def monitoring_node(node_name):
         bandwidth_receive_metrics = prom.custom_query(
             query=BANDWIDTH_RECEIVE_NODE_QUERY.format(job))
         bandwidth_receive_value = bandwidth_receive_metrics[0].get('value')[1]
-        
+
         bandwidth_transmit_metrics = prom.custom_query(
             query=BANDWIDTH_TRANSMIT_NODE_QUERY.format(job))
-        bandwidth_transmit_value = bandwidth_transmit_metrics[0].get('value')[1]
+        bandwidth_transmit_value = bandwidth_transmit_metrics[0].get('value')[
+            1]
     except:
         return
     return CPU_usage_value, memory_usage_value, bandwidth_receive_value, bandwidth_transmit_value, time
 
 
 def monitoring_pod(pod_name):
-    metric = f"container_label_io_kubernetes_pod_name='{pod_name}'"
+    try:
+        CPU_pods = prom.custom_query(query=CPU_POD_QUERY.format(pod_name))
+        CPU_usage_pods = CPU_pods[0].get('value')
+        time = CPU_usage_pods[0]
+        CPU_pod_value = CPU_usage_pods[1]
 
-    query_network_receive = 'container_network_receive_bytes_total{' + metric + '}'
-    query_network_transmit = 'container_network_transmit_bytes_total{' + metric + '}'
-    query_cpu = 'container_cpu_usage_seconds_total{' + metric + '}'
-    query_ram_1 = 'container_memory_working_set_bytes{' + metric + '}'
-    query_ram_2 = 'container_spec_memory_limit_bytes{' + metric + '}'
-
-    CPU_Pods = prom.custom_query(f'sum({query_cpu}) * 100')
-    CPU_Usage_Pods = CPU_Pods[0].get('value')
-    time = datetime.fromtimestamp(
-        CPU_Usage_Pods[0]).strftime("%A, %B %d, %Y %I:%M:%S")
-    CPU_Pod_value = CPU_Usage_Pods[1]
-
-    Memory_Pods = prom.custom_query(
-        query=f"(sum({query_ram_1}) / sum({query_ram_2})) * 100")
-    Memory_Usage_pod = Memory_Pods[0].get('value')
-    Memory_Pod_value = Memory_Usage_pod[1]
-
-    Bandwidth_pod = prom.custom_query(
-        query=f"sum(rate({query_network_receive}[5m]) + rate({query_network_transmit}[5m]))")
-    Bandwidth_Usage = Bandwidth_pod[0].get('value')
-    Bandwidth_Pod_value = Bandwidth_Usage[1]
-
-    return CPU_Pod_value, Memory_Pod_value, Bandwidth_Pod_value, time
+        memory_pods = prom.custom_query(
+            query=MEMORY_POD_QUERY.format(pod_name))
+        memory_usage_pod = memory_pods[0].get('value')
+        memory_pod_value = memory_usage_pod[1]
+        
+        bandwidth_receive_pod = prom.custom_query(
+            query=BANDWIDTH_RECEIVE_POD_QUERY.format(pod_name))
+        bandwidth_receive_pod_value = bandwidth_receive_pod[0].get('value')[1]
+        
+        bandwidth_transmit_pod = prom.custom_query(
+            query=BANDWIDTH_TRANSMIT_POD_QUERY.format(pod_name))
+        bandwidth_transmit_pod_value = bandwidth_transmit_pod[0].get('value')[
+            1]
+    except:
+        return
+    return CPU_pod_value, memory_pod_value, bandwidth_receive_pod_value, bandwidth_transmit_pod_value, time
 
 # NOTE: Check output of streaming over last nfv
 

@@ -10,6 +10,8 @@ def generate_file_time():
 
 
 def write_to_csv(data, file_name):
-    with open(file_name, 'a', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(data)
+    if data != None:
+        with open(file_name, 'a', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(data)
+    return

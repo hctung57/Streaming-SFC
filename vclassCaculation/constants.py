@@ -27,7 +27,11 @@ DATA_PROMETHEUS_FOLDER_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCac
 
 # Prometheus query
 
-CPU_NODE_QUERY = "100 - (avg by (instance, job)(irate(node_cpu_seconds_total{}[1m])) *100)"
+CPU_NODE_QUERY = "100 - (avg by (instance, job)(irate(node_cpu_seconds_total{}[1m]))*100)"
 MEMORY_NODE_QUERY = "((node_memory_MemTotal_bytes{}-node_memory_MemFree_bytes{}-node_memory_Cached_bytes{}-node_memory_Buffers_bytes{})/node_memory_MemTotal_bytes{})*100 "
 BANDWIDTH_RECEIVE_NODE_QUERY = "rate(node_network_receive_bytes_total{}[1m])"
 BANDWIDTH_TRANSMIT_NODE_QUERY= "rate(node_network_transmit_bytes_total{}[1m])"
+CPU_POD_QUERY = "avg(irate(container_cpu_usage_seconds_total{{container_label_io_kubernetes_pod_name='{}', container_label_io_cri_containerd_kind='container'}}[1m]))*100"
+MEMORY_POD_QUERY = "sum(container_memory_working_set_bytes{{container_label_io_kubernetes_pod_name='{}'}})"
+BANDWIDTH_RECEIVE_POD_QUERY = "rate(container_network_receive_bytes_total{{container_label_io_kubernetes_pod_name='{}'}}[5m])"
+BANDWIDTH_TRANSMIT_POD_QUERY = "rate(container_network_transmit_bytes_total{{container_label_io_kubernetes_pod_name='{}'}}[5m])"

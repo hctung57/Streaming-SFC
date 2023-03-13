@@ -34,9 +34,12 @@ def list_namespaced_pod_status(target_namespace: str = "default"):
                 return list_pod_status
         else:
             current_pod_state = str(pod.status.phase)
-        sum_pod_container = len(pod.status.container_statuses)
+        try:
+            sum_pod_container = len(pod.status.container_statuses)
+        except:
+            sum_pod_container = 0
         number_container_ready = 0
-        if pod != None:
+        if pod.status.container_statuses != None:
             for container in pod.status.container_statuses:
                 if container.ready == True:
                     number_container_ready += 1
