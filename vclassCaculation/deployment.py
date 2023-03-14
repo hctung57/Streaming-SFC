@@ -21,7 +21,12 @@ SFC2 = [[SOURCE_STREAMING_VNF],
 SFC3 = [[SOURCE_STREAMING_VNF],
         [FACE_DETECTION_VNF]]
 
+SFC4 = [[SOURCE_STREAMING_VNF],
+        [TRANSCODER_VNF]]
+SFC.append(SFC1)
 SFC.append(SFC2)
+SFC.append(SFC3)
+SFC.append(SFC4)
 
 
 # NOTE: generate a k8s service name using service and id

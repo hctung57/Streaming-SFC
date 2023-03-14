@@ -69,14 +69,14 @@ def main():
             th.start()
             sfc_id += 1
 
-        # calculate nodes (1 tab)
-        file_name_nodes = DATA_PROMETHEUS_FILE_NODE_DIRECTORY.format(
-            generate_file_time, generate_file_time, repetition)
-        th = threading.Thread(target=get_prometheus_node_value(
-            [CLOUD, EDGE], file_name_nodes, time_to_caculate))
-        th.start()
-        th.join()
-        time.sleep(60)
+            # calculate nodes (1 tab)
+            file_name_nodes = DATA_PROMETHEUS_FILE_NODE_DIRECTORY.format(
+                generate_file_time, generate_file_time, repetition)
+            th = threading.Thread(target=get_prometheus_node_value(
+                [CLOUD, EDGE], file_name_nodes, time_to_caculate))
+            th.start()
+            th.join()
+            time.sleep(60)
     print("[SCENARIO] done!")
     return
 

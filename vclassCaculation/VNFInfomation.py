@@ -19,7 +19,7 @@ SOURCE_STREAMING_VNF = service_info(
     NFV_SOURCE_STREAMING_SERVICE_NAME, "hctung57/source-streaming-ffmpeg:1.0.1", 1935, 1936)
 SOURCE_STREAMING_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
                                              client.V1EnvVar(name='SOURCE_RTMP_PORT', value='')]
-SOURCE_STREAMING_VNF.node_name = EDGE
+SOURCE_STREAMING_VNF.node_name = CLOUD
 
 # transcoder init
 TRANSCODER_VNF = service_info(
@@ -29,21 +29,21 @@ TRANSCODER_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVI
                                            name='SOURCE_RTMP_PORT', value=''),
                                        client.V1EnvVar(name='RESOLUTION', value='')]
 NFV_TRANSCODER_RESOUTION = R_480P
-TRANSCODER_VNF.node_name = EDGE
+TRANSCODER_VNF.node_name = CLOUD
 
 # face detection init
 FACE_DETECTION_VNF = service_info(
     NFV_FACE_DETECTION_SERVICE_NAME, "hctung57/face-detection:1.0.2", 1935, 1936)
 FACE_DETECTION_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
                                            client.V1EnvVar(name='SOURCE_RTMP_PORT', value='')]
-FACE_DETECTION_VNF.node_name = EDGE
+FACE_DETECTION_VNF.node_name = CLOUD
 
 # background blur init
 BACKGROUND_BLUR_VNF = service_info(
     NFV_BACKGROUND_BLUR_SERVICE_NAME, "hctung57/background-blur:1.0.2", 1935, 1936)
 BACKGROUND_BLUR_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
                                             client.V1EnvVar(name='SOURCE_RTMP_PORT', value='')]
-BACKGROUND_BLUR_VNF.node_name = EDGE
+BACKGROUND_BLUR_VNF.node_name = CLOUD
 
 # match audio video init
 MATCH_AUDIO_VIDEO_VNF = service_info(
@@ -56,14 +56,14 @@ MATCH_AUDIO_VIDEO_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREA
                                               client.V1EnvVar(
                                                   name='SOURCE_AUDIO_PORT', value=''),
                                               client.V1EnvVar(name='DELAY_AUDIO_VIDEO_TIME', value='0')]
-MATCH_AUDIO_VIDEO_VNF.node_name = EDGE
+MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
 
 # noisesuppress init
 NOISE_SUPRESS_VNF = service_info(
     NFV_NOISE_SUPPRESS_NAME, "hctung57/noisesuppress:1.0.2", 1935, 1936)
 NOISE_SUPRESS_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_AUDIO_SERVICE', value=''),
                                           client.V1EnvVar(name='SOURCE_AUDIO_PORT', value='')]
-NOISE_SUPRESS_VNF.node_name = EDGE
+NOISE_SUPRESS_VNF.node_name = CLOUD
 
 # face recognition init
 FACE_RECOGNITION_VNF = service_info(
@@ -71,4 +71,4 @@ FACE_RECOGNITION_VNF = service_info(
 FACE_RECOGNITION_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_AUDIO_SERVICE', value=''),
                                           client.V1EnvVar(name='SOURCE_AUDIO_PORT', value=''),
                                           client.V1EnvVar(name='IMAGE_URL', value='')]
-FACE_RECOGNITION_VNF.node_name = EDGE
+FACE_RECOGNITION_VNF.node_name = CLOUD
