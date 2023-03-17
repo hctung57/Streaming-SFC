@@ -31,15 +31,15 @@ RUN apt-get update && \
     pip install opencv-python && \
     pip install face-library && \
     pip install configargparse
-RUN mkdir facedetection
 
+RUN mkdir recognition
 
-COPY face_detection.py /facedetection
+COPY recognition.py  setup.py nginx.sh /recognition
 
-COPY nginx.sh /facedetection
-RUN cd facedetection && \
-    chmod +x nginx.sh
+RUN cd recognition && \
+    chmod +x nginx.sh && \
+    python3 setup.py
 
-WORKDIR /facedetection
+WORKDIR /recognition
 EXPOSE 1935
 CMD ["sh","./nginx.sh"]
