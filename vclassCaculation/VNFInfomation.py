@@ -10,16 +10,18 @@ class service_info:
         self.dokcer_image = dokcer_image
         self.container_port = container_port
         self.service_port = service_port
-        self.environment_variable = None
-        self.node_name = None
+        self.environment_variable = []
+        self.node_name = ""
 
 
 # source streaming init
 SOURCE_STREAMING_VNF = service_info(
     NFV_SOURCE_STREAMING_SERVICE_NAME, "hctung57/source-streaming-ffmpeg:1.0.1", 1935, 1936)
 SOURCE_STREAMING_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
-                                             client.V1EnvVar(name='SOURCE_RTMP_PORT', value='')]
-SOURCE_STREAMING_VNF.node_name = CLOUD
+                                             client.V1EnvVar(name='SOURCE_RTMP_PORT', value=''),
+                                             client.V1EnvVar(name='RESOLUTION', value='')]
+SOURCE_STREAMING_VNF.node_name = EDGE
+NFV_SOURCE_STREAMING_RESOUTION = R_1080P
 
 # transcoder init
 TRANSCODER_VNF = service_info(

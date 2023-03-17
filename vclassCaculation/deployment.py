@@ -23,6 +23,7 @@ SFC3 = [[SOURCE_STREAMING_VNF],
 
 SFC4 = [[SOURCE_STREAMING_VNF],
         [TRANSCODER_VNF]]
+
 SFC.append(SFC1)
 SFC.append(SFC2)
 SFC.append(SFC3)
@@ -39,6 +40,8 @@ def create_sfc(sfc, sfc_id: str):
 
         if chain_number == 0:
             for vnf in sfc[chain_number]:
+                vnf.environment_variable[2].value = str(
+                        NFV_SOURCE_STREAMING_RESOUTION)
                 message = kubernetesAPI.create_namespaced_service(
                     vnf.service_name, sfc_id, vnf.service_port)
                 print(message)
@@ -80,10 +83,11 @@ def create_sfc(sfc, sfc_id: str):
                         SOURCE_STREAMING_VNF.service_port)
 
                 else:
-                    vnf.environment_variable[0].value = generate_service_name(
-                        previous_vnf.service_name, sfc_id)
-                    vnf.environment_variable[1].value = str(
-                        previous_vnf.service_port)
+                    if previous_vnf != None:
+                        vnf.environment_variable[0].value = generate_service_name(
+                            previous_vnf.service_name, sfc_id)
+                        vnf.environment_variable[1].value = str(
+                            previous_vnf.service_port)
 
                 if vnf.service_name == NFV_TRANSCODER_SERVICE_NAME:
                     vnf.environment_variable[2].value = str(
