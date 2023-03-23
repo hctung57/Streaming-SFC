@@ -93,18 +93,13 @@ if __name__ == "__main__":
             if face_exist:
                 notify = 'True'
                 SUM_FRAME_HAVE_TRUE_OUTPUT += 1
-            # print("Recognition: {}".format(notify), end="\r")
-            # cv2.putText(frame,notify,(25,25), font, 1.0, (255,255,255), 1)
-
             # fps calculate
             SUM_FRAME_HANDLE += 1
             frame_count += 1
             td = time.monotonic() - t0
-            # cv2.imshow("aa", frame)
             if td > print_fps_period:
                 current_fps = frame_count / td
                 arr += [current_fps]
-                # print("FPS: {:6.2f}".format(current_fps), end="\r")
                 frame_count = 0
                 t0 = time.monotonic()
             logging.info('', extra={'verify': notify, 'fps': f'{current_fps:.2f}'})
@@ -119,11 +114,11 @@ if __name__ == "__main__":
         else:
             break
 
-recognition_rate = (SUM_FRAME_HAVE_TRUE_OUTPUT/SUM_FRAME_HAVE_FACE)*100
-print("AVERAGE FPS: ", average_fps(arr))
-print("recognition rate: {:6.2f}".format(recognition_rate), "%")
-print("Sum frame have face:", SUM_FRAME_HAVE_FACE)
-print("Sum frame handled: ", SUM_FRAME_HANDLE)
+    recognition_rate = (SUM_FRAME_HAVE_TRUE_OUTPUT/SUM_FRAME_HAVE_FACE)*100
+    print("AVERAGE FPS: ", average_fps(arr))
+    print("recognition rate: {:6.2f}".format(recognition_rate), "%")
+    print("Sum frame have face:", SUM_FRAME_HAVE_FACE)
+    print("Sum frame handled: ", SUM_FRAME_HANDLE)
 
-# After the loop release the cap object
-cap.release()
+    # After the loop release the cap object
+    cap.release()

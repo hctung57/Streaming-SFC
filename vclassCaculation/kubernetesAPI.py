@@ -31,7 +31,7 @@ def list_namespaced_pod_status(target_namespace: str = "default"):
                     if container.state.waiting != None:
                         current_pod_state = container.state.waiting.reason
             except:
-                return list_pod_status
+                current_pod_state = 'Pending'
         else:
             current_pod_state = str(pod.status.phase)
         try:
