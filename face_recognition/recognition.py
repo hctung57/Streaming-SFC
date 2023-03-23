@@ -5,14 +5,10 @@ import logging
 import configargparse
 import numpy as np
 import face_recognition
-from face_lib import face_lib
 
 logging.basicConfig(filename='app.log', filemode='a', level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - VERIFY: %(verify)s - FPS: %(fps)s')
-FL = face_lib()
-
 # get image from an URL function
-
 
 def url_to_image(url, readFlag=cv2.IMREAD_COLOR):
     # download the image, convert it to a NumPy array, and then read
@@ -49,14 +45,13 @@ if __name__ == "__main__":
     # setup
     font = cv2.FONT_HERSHEY_DUPLEX
     # source video
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(path)
     WIDTH_INPUT_STREAMING = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     HEIGHT_INPUT_STREAMING = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     FPS_INPUT_STREAMING = int(cap.get(cv2.CAP_PROP_FPS))
 
     # get image from an URL
-    # img = url_to_image(img_url)
-    img=cv2.imread("IMG_0534.jpg")
+    img = url_to_image(img_url)
     known_face_encodings = []
     known_face_encodings.append(face_recognition.face_encodings(img)[0])
     REFERENCE_IMAGE = img
@@ -71,11 +66,10 @@ if __name__ == "__main__":
     arr = []
     t0 = time.monotonic()
     process_this_frame = True
+    verify = None
     while True:
         # Grab a single frame of video
         ret, frame = cap.read()
-<<<<<<< HEAD
-
         # Only process every other frame of video to save time
         if process_this_frame:
             # Resize frame of video to 1/4 size for faster face recognition processing
@@ -92,118 +86,14 @@ if __name__ == "__main__":
             for face_encoding in face_encodings:
                 # See if the face is a match for the known face(s)
                 matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                print(matches)
+                verify = matches[0]
         process_this_frame = not process_this_frame
         frame_count += 1
         td = time.monotonic() - t0
-        # cv2.imshow("aa", frame)
         if td > print_fps_period:
             current_fps = frame_count / td
             arr += [current_fps]
-            # print("FPS: {:6.2f}".format(current_fps), end="\r")
             frame_count = 0
             t0 = time.monotonic()
-        # logging.info('', extra={'verify': , 'fps': f'{current_fps:.2f}'})
-        # Display the resulting image
-        cv2.imshow('Video', frame)
-
-        # Hit 'q' on the keyboard to quit!
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    # Release handle to the webcam
-    cap.release()
-    cv2.destroyAllWindows()
-#     # loop frame by frame
-#     while (True):
-#         ret, frame = cap.read()
-#         if ret == True:
-#             notify = 'False'
-
-#             # check if there are faces in frame and count it
-#             face_in_frame = FL.get_faces(frame)
-#             if face_in_frame:
-#                 SUM_FRAME_HAVE_FACE += 1
-
-#             face_exist, no_faces_detected = FL.recognition_pipeline(
-#                 frame, REFERENCE_IMAGE)
-#             if face_exist:
-#                 notify = 'True'
-#                 SUM_FRAME_HAVE_TRUE_OUTPUT += 1
-#             # print("Recognition: {}".format(notify), end="\r")
-#             # cv2.putText(frame,notify,(25,25), font, 1.0, (255,255,255), 1)
-
-#             # fps calculate
-#             SUM_FRAME_HANDLE += 1
-#             frame_count += 1
-#             td = time.monotonic() - t0
-#             # cv2.imshow("aa", frame)
-#             if td > print_fps_period:
-#                 current_fps = frame_count / td
-#                 arr += [current_fps]
-#                 # print("FPS: {:6.2f}".format(current_fps), end="\r")
-#                 frame_count = 0
-#                 t0 = time.monotonic()
-#             logging.info('', extra={'verify': notify, 'fps': f'{current_fps:.2f}'})
-
-#             # the 'q' button is set as the
-#             # quitting button you may use any
-#             # desired button of your choice
-#             if cv2.waitKey(1) & 0xFF == ord('q'):
-#                 break
-
-#         # break th loop
-#         else:
-#             break
-
-# recognition_rate = (SUM_FRAME_HAVE_TRUE_OUTPUT/SUM_FRAME_HAVE_FACE)*100
-# print("recognition rate: {:6.2f}".format(recognition_rate), "%")
-# print("Sum frame have face:", SUM_FRAME_HAVE_FACE)
-# print("Sum frame handled: ", SUM_FRAME_HANDLE)
-
-# # After the loop release the cap object
-# cap.release()
-=======
-        if ret == True:
-            notify = 'False'
-
-            # check if there are faces in frame and count it
-            face_in_frame = FL.get_faces(frame)
-            if face_in_frame:
-                SUM_FRAME_HAVE_FACE += 1
-
-            face_exist, no_faces_detected = FL.recognition_pipeline(
-                frame, REFERENCE_IMAGE)
-            if face_exist:
-                notify = 'True'
-                SUM_FRAME_HAVE_TRUE_OUTPUT += 1
-            # fps calculate
-            SUM_FRAME_HANDLE += 1
-            frame_count += 1
-            td = time.monotonic() - t0
-            if td > print_fps_period:
-                current_fps = frame_count / td
-                arr += [current_fps]
-                frame_count = 0
-                t0 = time.monotonic()
-            logging.info('', extra={'verify': notify, 'fps': f'{current_fps:.2f}'})
-
-            # the 'q' button is set as the
-            # quitting button you may use any
-            # desired button of your choice
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
-
-        # break th loop
-        else:
-            break
-
-    recognition_rate = (SUM_FRAME_HAVE_TRUE_OUTPUT/SUM_FRAME_HAVE_FACE)*100
-    print("AVERAGE FPS: ", average_fps(arr))
-    print("recognition rate: {:6.2f}".format(recognition_rate), "%")
-    print("Sum frame have face:", SUM_FRAME_HAVE_FACE)
-    print("Sum frame handled: ", SUM_FRAME_HANDLE)
-
-    # After the loop release the cap object
-    cap.release()
->>>>>>> a00f3853603064e5936e6331c59b4424294b85bb
+        logging.info('', extra={'verify': verify, 'fps': f'{current_fps:.2f}'})
+        print("function is running")
