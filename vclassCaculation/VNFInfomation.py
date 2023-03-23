@@ -70,7 +70,9 @@ NOISE_SUPRESS_VNF.node_name = EDGE
 # face recognition init
 FACE_RECOGNITION_VNF = service_info(
     NFV_FACE_RECOGNITION_NAME, "hctung57/face-recognition-ffmpeg:test", 1935, 1936)
-FACE_RECOGNITION_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_AUDIO_SERVICE', value=''),
-                                          client.V1EnvVar(name='SOURCE_AUDIO_PORT', value=''),
+FACE_RECOGNITION_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
+                                          client.V1EnvVar(name='SOURCE_RTMP_PORT', value=''),
                                           client.V1EnvVar(name='IMAGE_URL', value='')]
+FACE_RECOGNITION_VERIFY_IMAGE_URL="https://lh6.googleusercontent.com/X-GkxplHlP8_XvSxtWIIhwEHVuq_OTYNp7omk029HbpTKyQMSPUbgCdGgixr_AnfY_E=w2400"
+FACE_RECOGNITION_SOURCE = SOURCE_STREAMING_VNF
 FACE_RECOGNITION_VNF.node_name = EDGE
