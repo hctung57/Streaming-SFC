@@ -7,7 +7,7 @@ import subprocess
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
 logging.basicConfig(filename='app.log', filemode='a', level=logging.INFO,
-                    format='%(asctime)s - %(levelname)s - NUM: %(num_face)s - FPS: %(fps)s')
+                    format='%(asctime)s - %(levelname)s - VERIFY: %(verify)s - FPS: %(fps)s')
 #parser func
 def parser_args():
     parser = configargparse.ArgParser(description="Face Detection NFV FIL HUST",
@@ -96,7 +96,8 @@ with mp_face_detection.FaceDetection(
         print("FPS: {:6.2f}".format(current_fps), end="\r")
         frame_count = 0
         t0 = time.monotonic()
-    logging.info('', extra={'num': num_face, 'fps': f'{current_fps:.2f}'})
+    logging.info('', extra={'verify': num_face, 'fps': f'{current_fps:.2f}'})
+    print("function is running")
     # write to pipe
     p.stdin.write(image.tobytes())
     if cv2.waitKey(5) & 0xFF == 27:
