@@ -14,8 +14,6 @@ R_480P = 480
 R_360P = 360
 R_144P = 144
 
-NFV_TRANSCODER_RESOUTION = R_1080P
-NFV_SOURCE_STREAMING_RESOUTION = R_1080P
 # Node name
 CLOUD = "node2"
 EDGE = "node1"
@@ -24,7 +22,7 @@ EDGE = "node1"
 DATA_PROMETHEUS_FILE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/data_prom_sfc_{}_{}_repeat_time_{}.csv"
 DATA_PROMETHEUS_FILE_NODE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/data_prom_nodes_sfc_{}_{}_repeat_time_{}.csv"
 DATA_PROMETHEUS_FOLDER_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}"
-
+FPS_FILE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/fps_prom_sfc_{}_{}_repeat_time_{}.csv"
 # Prometheus query
 
 CPU_NODE_QUERY = "100 - (avg by (instance, job)(irate(node_cpu_seconds_total{}[1m]))*100)"

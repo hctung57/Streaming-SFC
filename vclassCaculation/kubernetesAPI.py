@@ -169,7 +169,10 @@ def delete_namespaced_service(target_service: str, target_ID: str, target_namesp
 
 
 def connect_get_namespaced_pod_exec(target_command: str, target_name: str):
-    command = "sudo kubectl exec -it {} -- {} ".format(
+    command = "kubectl exec -it {} -- {} ".format(
         target_name, target_command)
-    output = subprocess.check_output(['/bin/bash', '-c', command])
-    print(output)
+    try:
+        output = subprocess.check_output(['/bin/bash', '-c', command])
+    except:
+        return
+    return output
