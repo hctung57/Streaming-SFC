@@ -7,7 +7,7 @@ start_function() {
     echo "exported url of source streaming: $SOURCE_RTMP_URL"
     export SOURCE_AUDIO_URL="$(getent hosts $SOURCE_AUDIO_SERVICE | awk '{ print $1 ;exit }'):$SOURCE_AUDIO_PORT"
     echo "exported url of source audio: $SOURCE_AUDIO_URL"
-    ffmpeg -re -i "rtmp://$SOURCE_AUDIO_URL/live/audio" -itsoffset $DELAY_AUDIO_VIDEO_TIME -i "rtmp://$SOURCE_RTMP_URL/live/stream" -c:a copy -c:v copy -map 0:a:0 -map 1:v:0 -f flv rtmp://localhost/live/stream
+    ffmpeg -re -i "rtmp://$SOURCE_AUDIO_URL/live/audio" -itsoffset $DELAY_AUDIO_VIDEO_TIME -i "rtmp://$SOURCE_RTMP_URL/live/stream" -c:a copy -c:v copy -map 0:a:0 -map 1:v:0 -f flv rtmp://localhost/live/stream 2> app.log
     return
 }
 start_function

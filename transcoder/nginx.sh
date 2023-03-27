@@ -12,7 +12,7 @@ start_function() {
     then 
         resolution=$sourceVideoStreamWidth"x"$sourceVideoStreamHeight           
         echo "Resolution value not found in setting. Using default setting "$resolution
-        ffmpeg -re -i "rtmp://$SOURCE_RTMP_URL/live/stream" -r 30 -s "$resolution" -f flv rtmp://localhost/live/stream
+        ffmpeg -re -i "rtmp://$SOURCE_RTMP_URL/live/stream" -r 30 -s "$resolution" -f flv rtmp://localhost/live/stream -loglevel quiet -stats 2> app.log
     else
         if [ "$sourceVideoStreamWidth" != "" ]; then
             widthStream=$(($sourceVideoStreamWidth*$RESOLUTION/$sourceVideoStreamHeight))
@@ -22,7 +22,7 @@ start_function() {
             fi
             resolution=$widthStream"x"$RESOLUTION
             echo "Setting resolution of streaming to" $resolution
-            ffmpeg -re -i "rtmp://$SOURCE_RTMP_URL/live/stream" -r 30 -s "$resolution" -f flv rtmp://localhost/live/stream
+            ffmpeg -re -i "rtmp://$SOURCE_RTMP_URL/live/stream" -r 30 -s "$resolution" -f flv rtmp://localhost/live/stream -loglevel quiet -stats 2> app.log
         fi
     fi
     return
