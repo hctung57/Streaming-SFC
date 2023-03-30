@@ -16,7 +16,7 @@ class service_info:
 
 # source streaming init
 SOURCE_STREAMING_VNF = service_info(
-    NFV_SOURCE_STREAMING_SERVICE_NAME, "hctung57/source-streaming-ffmpeg:1.0.2", 1935, 1936)
+    NFV_SOURCE_STREAMING_SERVICE_NAME, "hctung57/source-streaming-ffmpeg:1.0.4", 1935, 1936)
 SOURCE_STREAMING_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
                                              client.V1EnvVar(name='SOURCE_RTMP_PORT', value=''),
                                              client.V1EnvVar(name='RESOLUTION', value='')]
@@ -49,7 +49,7 @@ BACKGROUND_BLUR_VNF.node_name = EDGE
 
 # match audio video init
 MATCH_AUDIO_VIDEO_VNF = service_info(
-    NFV_MATCH_AUDIO_VIDEO_SERVICE_NAME, "hctung57/match-av:1.0.2", 1935, 1936)
+    NFV_MATCH_AUDIO_VIDEO_SERVICE_NAME, "hctung57/match-av:1.0.4", 1935, 1936)
 MATCH_AUDIO_VIDEO_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
                                               client.V1EnvVar(
                                                   name='SOURCE_RTMP_PORT', value=''),

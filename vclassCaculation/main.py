@@ -20,9 +20,9 @@ def deploy_sfc_and_get_prometheus_pod_value(target_sfc, target_sfc_id: str, file
         if time.monotonic() - start_time > time_to_calculate:
             for pod in list_pod_namespaced:
                 if key in pod.pod_name and pod.pod_status == "Running":
-                    log_data = kubernetesAPI.connect_get_namespaced_pod_exec("cat app.log",pod.pod_name)
-                    if log_data != None:
-                        functional.write_log_data_to_csv(log_data, file_name_fps)
+                    if not (NFV_NOISE_SUPPRESS_NAME in pod.pod_name):
+                        kubernetesAPI.connect_get_namespaced_pod_exec("cat app.log > results/temp/temp.log",pod.pod_name)
+                        functional.write_log_data_to_csv(pod.pod_name, file_name_fps)
             deployment.delete_sfc(target_sfc, target_sfc_id)
             break
         for pod in list_pod_namespaced:
@@ -61,7 +61,7 @@ def main(resolution):
     VNFInfomation.NFV_SOURCE_STREAMING_RESOUTION = resolution
     print("source streaming resolution: ",VNFInfomation.NFV_SOURCE_STREAMING_RESOUTION)
     # edit number_of_repetitions here
-    number_of_repetitions = 1
+    number_of_repetitions = 5
     time_to_caculate = 300  # sec
     print("[START CALCULATING WITH", number_of_repetitions,
           " REPETITION AND", time_to_caculate, "SECOND]")
@@ -92,10 +92,10 @@ def main(resolution):
 
 
 if __name__ == "__main__":
-    main(R_1080P)
-    main(R_720P)
-    main(R_480P)
-    main(R_360P)
+    # main(R_1080P)
+    # main(R_720P)
+    # main(R_480P)
+    # main(R_360P)
     
     VNFInfomation.SOURCE_STREAMING_VNF.node_name = EDGE
     VNFInfomation.MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
@@ -105,8 +105,8 @@ if __name__ == "__main__":
     VNFInfomation.TRANSCODER_VNF.node_name = CLOUD
     VNFInfomation.BACKGROUND_BLUR_VNF.node_name = CLOUD
     
-    main(R_1080P)
-    main(R_720P)
-    main(R_480P)
+    # main(R_1080P)
+    # main(R_720P)
+    # main(R_480P)
     main(R_360P)
     

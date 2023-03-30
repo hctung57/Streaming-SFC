@@ -40,7 +40,7 @@ SFC.append(SFC3)
 SFC.append(SFC4)
 SFC.append(SFC5)
 SFC.append(SFC6)
-SFC.append(SFC7)
+# SFC.append(SFC7)
 
 
 # NOTE: generate a k8s service name using service and id
