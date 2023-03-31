@@ -15,8 +15,8 @@ R_360P = 360
 R_144P = 144
 
 # Node name
-CLOUD = "node2"
-EDGE = "node1"
+CLOUD = "cloud"
+EDGE = "edge"
 
 # Directory
 DATA_PROMETHEUS_FILE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/data_prom_sfc_{}_{}_repeat_time_{}.csv"
