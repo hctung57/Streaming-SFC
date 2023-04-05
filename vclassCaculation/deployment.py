@@ -38,13 +38,13 @@ SFC7 = [[VNFInfomation.SOURCE_STREAMING_VNF]]
 SFC8 = [[VNFInfomation.SOURCE_STREAMING_VNF],
         [VNFInfomation.TRANSCODER_VNF,VNFInfomation.BACKGROUND_BLUR_VNF,VNFInfomation.MATCH_AUDIO_VIDEO_VNF]]
 
-# SFC.append(SFC1)
-# SFC.append(SFC2)
-# SFC.append(SFC3)
-# SFC.append(SFC4)
+SFC.append(SFC1)
+SFC.append(SFC2)
+SFC.append(SFC3)
+SFC.append(SFC4)
 # SFC.append(SFC5)
-# SFC.append(SFC6)
-SFC.append(SFC8)
+SFC.append(SFC6)
+# SFC.append(SFC8)
 
 
 # NOTE: generate a k8s service name using service and id
@@ -160,10 +160,10 @@ def delete_sfc(sfc, sfc_id: str):
             print(message)
     return
 
-i = 1
-for sfc in SFC:
-    delete_sfc(sfc, str(i))
-    i += 1
+# i = 1
+# for sfc in SFC:
+#     delete_sfc(sfc, str(i))
+#     i += 1
 # i = 1
 # for sfc in SFC:
 #     create_sfc(sfc, str(i))

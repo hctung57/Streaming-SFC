@@ -47,8 +47,8 @@ def get_prometheus_node_value(target_list_node , file_name: str, time_to_calcula
             break
         for node in target_list_node:
             try:
-                cpu, memory, bandwidth_transmit, bandwidth_receive, time_prom = prometheus.monitoring_node(node) # type: ignore
-                data = [time_prom, cpu, memory, bandwidth_transmit, bandwidth_receive, node]
+                cpu, memory, power, bandwidth_transmit, bandwidth_receive, time_prom = prometheus.monitoring_node(node) # type: ignore
+                data = [time_prom, cpu, memory, power, bandwidth_transmit, bandwidth_receive, node]
                 functional.write_to_csv(data, file_name)
             except:
                 continue
@@ -92,21 +92,21 @@ def main(resolution):
 
 
 if __name__ == "__main__":
+    main(R_1080P)
+    main(R_720P)
+    main(R_480P)
+    main(R_360P)
+    
+    # VNFInfomation.SOURCE_STREAMING_VNF.node_name = EDGE
+    # VNFInfomation.MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
+    # VNFInfomation.NOISE_SUPRESS_VNF.node_name = CLOUD
+    # VNFInfomation.FACE_RECOGNITION_VNF.node_name = CLOUD
+    # VNFInfomation.FACE_DETECTION_VNF.node_name = CLOUD
+    # VNFInfomation.TRANSCODER_VNF.node_name = CLOUD
+    # VNFInfomation.BACKGROUND_BLUR_VNF.node_name = CLOUD
+    
     # main(R_1080P)
     # main(R_720P)
     # main(R_480P)
     # main(R_360P)
-    
-    VNFInfomation.SOURCE_STREAMING_VNF.node_name = EDGE
-    VNFInfomation.MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
-    VNFInfomation.NOISE_SUPRESS_VNF.node_name = CLOUD
-    VNFInfomation.FACE_RECOGNITION_VNF.node_name = CLOUD
-    VNFInfomation.FACE_DETECTION_VNF.node_name = CLOUD
-    VNFInfomation.TRANSCODER_VNF.node_name = CLOUD
-    VNFInfomation.BACKGROUND_BLUR_VNF.node_name = CLOUD
-    
-    # main(R_1080P)
-    # main(R_720P)
-    # main(R_480P)
-    main(R_360P)
     

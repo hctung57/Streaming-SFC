@@ -18,13 +18,14 @@ R_144P = 144
 CLOUD = "cloud"
 EDGE = "edge"
 
+POWER_MONITOR = EDGE
 # Directory
 DATA_PROMETHEUS_FILE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/data_prom_sfc_{}_{}_repeat_time_{}.csv"
 DATA_PROMETHEUS_FILE_NODE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/data_prom_nodes_sfc_{}_{}_repeat_time_{}.csv"
 DATA_PROMETHEUS_FOLDER_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}"
 FPS_FILE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/fps_prom_sfc_{}_{}_repeat_time_{}.csv"
 # Prometheus query
-
+POWER_NODE_QUERY = "power_of_node{}"
 CPU_NODE_QUERY = "100 - (avg by (instance, job)(irate(node_cpu_seconds_total{}[1m]))*100)"
 MEMORY_NODE_QUERY = "((node_memory_MemTotal_bytes{}-node_memory_MemFree_bytes{}-node_memory_Cached_bytes{}-node_memory_Buffers_bytes{})/node_memory_MemTotal_bytes{})*100 "
 BANDWIDTH_RECEIVE_NODE_QUERY = "irate(node_network_receive_bytes_total{}[1m])"
