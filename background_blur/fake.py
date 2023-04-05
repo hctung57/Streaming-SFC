@@ -9,6 +9,7 @@ from typing import Any, Dict
 import cv2
 import numpy as np
 import time
+import logging
 import mediapipe as mp
 import subprocess
 from cmapy import cmap
@@ -293,7 +294,9 @@ class FakeCam:
         print_fps_period = 1
         frame_count = 0
         blank_image = None
-
+        current_fps = 0
+        logging.basicConfig(filename='app.log', filemode='a', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - FPS: %(fps)s')
         # inotify = INotify(nonblocking=True)
         # if self.ondemand:
         #     watch_flags = flags.CREATE | flags.OPEN | flags.CLOSE_NOWRITE | flags.CLOSE_WRITE
@@ -332,10 +335,10 @@ class FakeCam:
                 frame_count += 1
                 td = time.monotonic() - t0
                 if td > print_fps_period:
-                    self.current_fps = frame_count / td
-                    print("FPS: {:6.2f}".format(self.current_fps), end="\r")
+                    current_fps = frame_count / td
                     frame_count = 0
                     t0 = time.monotonic()
+                logging.info('', extra={'fps': f'{current_fps:.2f}'})
             else:
                 width = 0
                 height = 0
