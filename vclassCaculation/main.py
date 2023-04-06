@@ -92,21 +92,21 @@ def main(resolution):
 
 
 if __name__ == "__main__":
-    main(R_1080P)
-    main(R_720P)
-    main(R_480P)
-    main(R_360P)
-    
-    # VNFInfomation.SOURCE_STREAMING_VNF.node_name = EDGE
-    # VNFInfomation.MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
-    # VNFInfomation.NOISE_SUPRESS_VNF.node_name = CLOUD
-    # VNFInfomation.FACE_RECOGNITION_VNF.node_name = CLOUD
-    # VNFInfomation.FACE_DETECTION_VNF.node_name = CLOUD
-    # VNFInfomation.TRANSCODER_VNF.node_name = CLOUD
-    # VNFInfomation.BACKGROUND_BLUR_VNF.node_name = CLOUD
-    
     # main(R_1080P)
     # main(R_720P)
     # main(R_480P)
     # main(R_360P)
+    
+    VNFInfomation.SOURCE_STREAMING_VNF.node_name = EDGE
+    VNFInfomation.MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
+    VNFInfomation.NOISE_SUPRESS_VNF.node_name = CLOUD
+    VNFInfomation.FACE_RECOGNITION_VNF.node_name = CLOUD
+    VNFInfomation.FACE_DETECTION_VNF.node_name = CLOUD
+    VNFInfomation.TRANSCODER_VNF.node_name = CLOUD
+    VNFInfomation.BACKGROUND_BLUR_VNF.node_name = CLOUD
+    
+    main(R_1080P)
+    main(R_720P)
+    main(R_480P)
+    main(R_360P)
     

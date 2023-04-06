@@ -20,7 +20,7 @@ SOURCE_STREAMING_VNF = service_info(
 SOURCE_STREAMING_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVICE', value=''),
                                              client.V1EnvVar(name='SOURCE_RTMP_PORT', value=''),
                                              client.V1EnvVar(name='RESOLUTION', value='')]
-SOURCE_STREAMING_VNF.node_name = CLOUD
+SOURCE_STREAMING_VNF.node_name = EDGE
 NFV_SOURCE_STREAMING_RESOUTION = R_1080P
 
 # transcoder init

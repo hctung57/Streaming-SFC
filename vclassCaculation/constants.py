@@ -18,7 +18,7 @@ R_144P = 144
 CLOUD = "cloud"
 EDGE = "edge"
 
-POWER_MONITOR = EDGE
+POWER_MONITOR = CLOUD
 # Directory
 DATA_PROMETHEUS_FILE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/data_prom_sfc_{}_{}_repeat_time_{}.csv"
 DATA_PROMETHEUS_FILE_NODE_DIRECTORY = "/home/server1/virtualclassroom-SFC/vclassCaculation/results/{}/data_prom_nodes_sfc_{}_{}_repeat_time_{}.csv"
