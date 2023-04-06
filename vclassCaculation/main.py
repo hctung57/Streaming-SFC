@@ -61,7 +61,7 @@ def main(resolution):
     VNFInfomation.NFV_SOURCE_STREAMING_RESOUTION = resolution
     print("source streaming resolution: ",VNFInfomation.NFV_SOURCE_STREAMING_RESOUTION)
     # edit number_of_repetitions here
-    number_of_repetitions = 5
+    number_of_repetitions = 2
     time_to_caculate = 300  # sec
     print("[START CALCULATING WITH", number_of_repetitions,
           " REPETITION AND", time_to_caculate, "SECOND]")
@@ -97,7 +97,7 @@ if __name__ == "__main__":
     # main(R_480P)
     # main(R_360P)
     
-    VNFInfomation.SOURCE_STREAMING_VNF.node_name = EDGE
+    VNFInfomation.SOURCE_STREAMING_VNF.node_name = CLOUD
     VNFInfomation.MATCH_AUDIO_VIDEO_VNF.node_name = CLOUD
     VNFInfomation.NOISE_SUPRESS_VNF.node_name = CLOUD
     VNFInfomation.FACE_RECOGNITION_VNF.node_name = CLOUD

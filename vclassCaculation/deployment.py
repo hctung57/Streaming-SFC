@@ -38,13 +38,13 @@ SFC7 = [[VNFInfomation.SOURCE_STREAMING_VNF]]
 SFC8 = [[VNFInfomation.SOURCE_STREAMING_VNF],
         [VNFInfomation.TRANSCODER_VNF,VNFInfomation.BACKGROUND_BLUR_VNF,VNFInfomation.MATCH_AUDIO_VIDEO_VNF]]
 
-SFC.append(SFC1)
-SFC.append(SFC2)
-SFC.append(SFC3)
-SFC.append(SFC4)
+# SFC.append(SFC1)
+# SFC.append(SFC2)
+# SFC.append(SFC3)
+# SFC.append(SFC4)
 # SFC.append(SFC5)
-SFC.append(SFC6)
-# SFC.append(SFC7)
+# SFC.append(SFC6)
+SFC.append(SFC7)
 
 
 # NOTE: generate a k8s service name using service and id
