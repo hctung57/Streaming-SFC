@@ -38,13 +38,14 @@ SFC7 = [[VNFInfomation.SOURCE_STREAMING_VNF]]
 SFC8 = [[VNFInfomation.SOURCE_STREAMING_VNF],
         [VNFInfomation.TRANSCODER_VNF,VNFInfomation.BACKGROUND_BLUR_VNF,VNFInfomation.MATCH_AUDIO_VIDEO_VNF]]
 
-# SFC.append(SFC1)
-# SFC.append(SFC2)
-# SFC.append(SFC3)
-# SFC.append(SFC4)
-# SFC.append(SFC5)
+SFC.append(SFC1)
+SFC.append(SFC2)
+SFC.append(SFC3)
+SFC.append(SFC4)
+SFC.append(SFC5)
 # SFC.append(SFC6)
-SFC.append(SFC7)
+# SFC.append(SFC7)
+# SFC.append(SFC8)
 
 
 # NOTE: generate a k8s service name using service and id
@@ -112,7 +113,6 @@ def create_sfc(sfc, sfc_id: str):
                         VNFInfomation.SOURCE_STREAMING_VNF.service_name, sfc_id)
                     vnf.environment_variable[1].value = str(
                         VNFInfomation.SOURCE_STREAMING_VNF.service_port)
-
                 else:
                     if previous_vnf != None:
                         vnf.environment_variable[0].value = generate_service_name(
@@ -136,7 +136,13 @@ def create_sfc(sfc, sfc_id: str):
                             VNFInfomation.SOURCE_STREAMING_VNF.service_name, sfc_id)
                         vnf.environment_variable[3].value = str(
                             VNFInfomation.SOURCE_STREAMING_VNF.service_port)
-
+                        
+                if vnf.service_name == NFV_DELAY_CALCULATOR_NAME:
+                    vnf.environment_variable[2].value = generate_service_name(
+                        VNFInfomation.SOURCE_STREAMING_VNF.service_name, sfc_id)
+                    vnf.environment_variable[3].value = str(
+                        VNFInfomation.SOURCE_STREAMING_VNF.service_port)
+                    
                 message = kubernetesAPI.create_namespaced_service(
                     vnf.service_name, sfc_id, vnf.service_port)
                 print(message)
@@ -160,15 +166,24 @@ def delete_sfc(sfc, sfc_id: str):
             print(message)
     return
 
+def delete_pod(service_name:str, sfc_id:str):
+    message = kubernetesAPI.delete_namespaced_deployment(service_name, sfc_id)
+    print(message)
+    message = kubernetesAPI.delete_namespaced_service(service_name, sfc_id)
+    print(message)
+    return
+# # delete sfc
 # i = 1
-# for sfc in SFC:
-#     delete_sfc(sfc, str(i))
-#     i += 1
+# delete_sfc(SFC4, str(i))
+# i += 1
+# # create sfc
 # i = 1
 # for sfc in SFC:
 #     create_sfc(sfc, str(i))
+#     time.sleep(300)
+#     delete_sfc(sfc, str(i))
 #     i += 1
-# time.sleep(30000)
+# time.sleep(240)
 # i = 1   
 # for sfc in SFC:
 #     delete_sfc(sfc, str(i))

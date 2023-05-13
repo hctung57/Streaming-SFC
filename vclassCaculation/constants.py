@@ -6,6 +6,7 @@ NFV_SOURCE_STREAMING_SERVICE_NAME = "source-streaming"
 NFV_MATCH_AUDIO_VIDEO_SERVICE_NAME = "match-av"
 NFV_TRANSCODER_SERVICE_NAME = "transcoder"
 NFV_NOISE_SUPPRESS_NAME = "noise-suppress"
+NFV_DELAY_CALCULATOR_NAME = "delay-calculator"
 
 # Transcoder resolution
 R_1080P = 1080

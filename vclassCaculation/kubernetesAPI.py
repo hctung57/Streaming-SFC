@@ -176,3 +176,13 @@ def connect_get_namespaced_pod_exec(target_command: str, target_name: str):
     except:
         return
     return output
+
+def list_namespaced_service(target_namespace: str = "default"):
+    list_service_info = []
+    result = ApiV1.list_namespaced_service(target_namespace)
+    if result.items != None:
+        for item in result.items:
+            name = item.metadata.name
+            ip = item.spec.cluster_ip
+            list_service_info.append([name,ip])
+    return list_service_info
