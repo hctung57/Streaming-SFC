@@ -118,6 +118,7 @@ class FakeCam:
         # In case the real webcam does not support the requested mode.
         self.width = self.real_cam.get_frame_width()
         self.height = self.real_cam.get_frame_height()
+        self.fps = self.real_cam.get_frame_rate()
         # self.fake_cam = pyfakewebcam.FakeWebcam(self.v4l2loopback_path, self.width,
         #                                         self.height)
         self.foreground_mask = None
@@ -131,11 +132,7 @@ class FakeCam:
            '-vcodec', 'rawvideo',
            '-pix_fmt', 'bgr24',
            '-s', "{}x{}".format(self.width, self.height),
-           '-r', str(self.fps),
            '-i', '-',
-           '-c:v', 'libx264',
-           '-pix_fmt', 'yuv420p',
-           '-preset', 'ultrafast',
            '-f', 'flv',
            'rtmp://localhost/live/stream']
         self.p = subprocess.Popen(self.command, stdin=subprocess.PIPE)

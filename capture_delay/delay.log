@@ -1,0 +1,12 @@
+time: 3574.602369519 - func: tung_start
+time: 3574.602696805 - func: tung1_start
+time: 1682148185.4749513 - func: tung_end
+time: 1682148191.2790017 - func: tung1_end
+time: 3804.773990991 - func: tung_start
+time: 3804.774361216 - func: tung1_start
+time: 1682148453.9775379 - func: tung_end
+time: 1682148454.085539 - func: tung1_end
+start: 6656.807209293 - success: 6656.813835655 - last frame: 0 - end: 0 - func: None
+start: 6656.807784353 - success: 6656.814018668 - last frame: 0 - end: 0 - func: None
+start: 6711.519151419 - success: 6711.520423233 - last frame: 0 - end: 0 - func: None
+start: 6711.519306091 - success: 6711.520597611 - last frame: 0 - end: 0 - func: None
