@@ -1,6 +1,8 @@
 import librtmp
 import logging
 import configargparse
+import threading
+
 
 logging.basicConfig(filename='buffer.log', level=logging.INFO,
                     format='%(number_video_packet)s - %(send_request_time)s - %(start_receive_time)s - '
@@ -37,7 +39,7 @@ url_2 = f'rtmp://{source_rtmp_2}/live/stream'
 
 
 def rtmp_connect(url: str, file_name: str):
-    file_name = 'packet' + file_name + '.log'
+    file_name = 'packet/' + file_name + '.log'
     logging.basicConfig(filename=file_name, level=logging.INFO,
                         format='%(number_video_packet)s - %(send_request_time)s - %(start_receive_time)s - '
                                '%(receive_complete_time)s - %(timestamp)s - %(current_bitrate)s')
@@ -66,3 +68,7 @@ def rtmp_connect(url: str, file_name: str):
         else:
             print("End of stream")
             break
+    th1 = threading.Thread(target=rtmp_connect, args=(
+        source_name_1, url_1)).start()
+    th2 = threading.Thread(target=rtmp_connect, args=(
+        source_name_2, url_2)).start()
