@@ -180,7 +180,7 @@ def delete_pod(service_name:str, sfc_id:str):
 # i = 1
 # for sfc in SFC:
 #     create_sfc(sfc, str(i))
-#     time.sleep(300)
+#     # time.sleep(300)
 #     delete_sfc(sfc, str(i))
 #     i += 1
 # time.sleep(240)

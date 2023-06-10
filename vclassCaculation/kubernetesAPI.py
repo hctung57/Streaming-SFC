@@ -75,7 +75,8 @@ def list_namespaced_endpoints(target_namespce: str = "default"):
         entry["endpoints"] = list_subnet
         list_endpoints.append(entry)
     return list_endpoints
-
+-suppress-1-service     ClusterIP   10.233.52.218   <none>
+   1936/T
 def get_number_namespaced_pod_through_status(target_status: str, target_namespace: str = "default"):
     count = 0
     list_pod = list_namespaced_pod_status(target_namespace)

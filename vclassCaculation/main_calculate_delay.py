@@ -32,7 +32,7 @@ def run_mesure_process(service_name_1:str, service_name_2:str, service_ip_1:str,
 	# Connect to server
 	ssh.connect("192.168.101.9", username="fil", password="1")
 
-	command = f'cd /home/fil/tung/delay/ && python3 capture.py -name1 {service_name_1} -name2 {service_name_2} -s1 {service_ip_1}:1936 -s2 {service_ip_2}:1936'
+	command = f'cd /home/fil/tung/delaycount/ && python3 build.py -name1 {service_name_1} -name2 {service_name_2} -s1 {service_ip_1}:1936 -s2 {service_ip_2}:1936'
 	# Do command
 	(ssh_stdin, ssh_stdout, ssh_stderr) = ssh.exec_command(command)
 	# Get status code of command
@@ -66,9 +66,9 @@ def deploy_sfc_and_get_delay(target_sfc, target_sfc_id: str, file_name: str , ti
 	return
 
 def main(resolution):
-	time_to_calculate = 180
+	time_to_calculate = 200
 	VNFInfomation.NFV_SOURCE_STREAMING_RESOUTION = resolution
-	th = threading.Thread(target=deploy_sfc_and_get_delay, args=(SFC4,"1","",time_to_calculate))
+	th = threading.Thread(target=deploy_sfc_and_get_delay, args=(SFC5,"1","",time_to_calculate))
 	th.start()
 	time.sleep(6)
 	list_service = kubernetesAPI.list_namespaced_service()
@@ -81,14 +81,61 @@ def main(resolution):
 			else:
 				other_service = service
 
-	th1 = threading.Thread(target=run_mesure_process, args=(f'{source_streaming_service[0]}-{resolution}', f'{other_service[0]}-{resolution}', source_streaming_service[1], other_service[1]))
+	# th1 = threading.Thread(target=run_mesure_process, args=(f'{source_streaming_service[0]}-{resolution}', f'{other_service[0]}-{VNFInfomation.NFV_TRANSCODER_RESOUTION}-{VNFInfomation.TRANSCODER_VNF.node_name}', source_streaming_service[1], other_service[1]))
+	# th1.start()
+	# th1.join()
+	# th.join()
+	#     deploy_sfc_and_get_delay(SFC2,"1","",time_to_calculate)
+	th1 = threading.Thread(target=run_mesure_process, args=(f'{source_streaming_service[0]}-{resolution}', f'{other_service[0]}-{VNFInfomation.NOISE_SUPRESS_VNF.node_name}', source_streaming_service[1], other_service[1]))
 	th1.start()
 	th1.join()
 	th.join()
-	#     deploy_sfc_and_get_delay(SFC2,"1","",time_to_calculate)
 	print("[SCENARIO] start done")
 	return
+number_of_rep = 15
 
-for i in range(50):
-	main(R_480P)
+# VNFInfomation.TRANSCODER_VNF.node_name = CLOUD
+# for i in range(number_of_rep):
+# 	VNFInfomation.NFV_TRANSCODER_RESOUTION = R_360P
+# 	main(R_720P)
+# 	time.sleep(60)
+
+# for i in range(number_of_rep):
+# 	VNFInfomation.NFV_TRANSCODER_RESOUTION = R_480P
+# 	main(R_720P)
+# 	time.sleep(60)
+
+# for i in range(1):
+# 	VNFInfomation.NFV_TRANSCODER_RESOUTION = R_360P
+# 	main(R_720P)
+# 	time.sleep(60)
+
+# VNFInfomation.TRANSCODER_VNF.node_name = EDGE
+# for i in range(number_of_rep):
+# 	VNFInfomation.NFV_TRANSCODER_RESOUTION = R_720P
+# 	main(R_720P)
+# 	time.sleep(60)
+
+# for i in range(number_of_rep):
+# 	VNFInfomation.NFV_TRANSCODER_RESOUTION = R_360P
+# 	main(R_720P)
+# 	time.sleep(60)
+
+# for i in range(number_of_rep):
+# 	VNFInfomation.NFV_TRANSCODER_RESOUTION = R_480P
+# 	main(R_720P)
+# 	time.sleep(60)edited Apr 2, 2014 at 14:12
+# ￼
+# Sam Hasler
+# 12.3k1010 gold badges7171 silver badges105105 bronze badges
+
+#Noise Delay Calculation:
+VNFInfomation.NOISE_SUPRESS_VNF.node_name = CLOUD
+for i in range(number_of_rep):
+	main(R_1080P)
+	time.sleep(60)
+
+VNFInfomation.NOISE_SUPRESS_VNF.node_name = EDGE
+for i in range(number_of_rep):
+	main(R_1080P)
 	time.sleep(60)

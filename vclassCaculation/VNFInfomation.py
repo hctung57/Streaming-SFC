@@ -30,8 +30,8 @@ TRANSCODER_VNF.environment_variable = [client.V1EnvVar(name='SOURCE_STREAM_SERVI
                                        client.V1EnvVar(
                                            name='SOURCE_RTMP_PORT', value=''),
                                        client.V1EnvVar(name='RESOLUTION', value='')]
-NFV_TRANSCODER_RESOUTION = ""
-TRANSCODER_VNF.node_name = EDGE
+NFV_TRANSCODER_RESOUTION = R_480P
+TRANSCODER_VNF.node_name = CLOUD
 
 # face detection init
 FACE_DETECTION_VNF = service_info(
